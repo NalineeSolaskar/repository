@@ -1,0 +1,21 @@
+version: "3"
+services:
+selenium-hub:
+	    image: selenium/hub:4.1.4-20220427
+	    container_name: selenium-hub-example
+	    ports:
+	      - "4444:4444"
+	  chrome:
+	    image: selenium/node-chrome:4.1.4-20240702
+	    container_name: chrome1-example
+	    ports:
+	      - "5901:5910"
+	    volumes:
+	      - /dev/shm:/dev/shm
+	    depends_on:
+	      - selenium-hub
+	    environment:
+	      - HUB_HOST: selenium-hub
+	      - HUB_PORT: 4444
+	    links:
+	      - selenium-hub
